@@ -28,9 +28,10 @@ public class ProductController {
 	@GetMapping("/products")
 	public List<Product> list() {
 		return productService.findAll().stream().map(p -> {
-			//p.setPort(Integer.parseInt(env.getProperty("local.server.port")));
+			p.setPort(Integer.parseInt(env.getProperty("local.server.port")));
+			
 			//en vez de usarr la variable de entorno env usamos @value
-			p.setPort(port);
+			//p.setPort(port);
 			return p;
 		}).collect(Collectors.toList());
 	}
@@ -39,7 +40,17 @@ public class ProductController {
 	public Product getById(@PathVariable Long id) {
 		Product prod = productService.findById(id);
 		prod.setPort(Integer.parseInt(env.getProperty("local.server.port")));
+		//prod.setPort(port);
+		
+//		try {
+//			Thread.sleep(2000L);//Timeout en Ribbon o Hystrix es timout default es 1 seg más de eso lanza exception
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
 		return prod;
+		
 	}
 	
 	
