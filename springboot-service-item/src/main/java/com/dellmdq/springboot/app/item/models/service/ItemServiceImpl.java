@@ -14,7 +14,7 @@ import com.dellmdq.springboot.app.item.models.Item;
 import com.dellmdq.springboot.app.item.models.Product;
 
 
-@Service("restClient")
+@Service("serviceRestClient")
 public class ItemServiceImpl implements ItemService {
 	
 	@Autowired

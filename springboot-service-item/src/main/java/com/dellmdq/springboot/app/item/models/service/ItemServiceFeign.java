@@ -11,8 +11,9 @@ import com.dellmdq.springboot.app.item.clients.ProductRestClient;
 import com.dellmdq.springboot.app.item.models.Item;
 
 
+
+//@Primary
 @Service("serviceFeign")
-@Primary
 public class ItemServiceFeign implements ItemService {
 
 	@Autowired

@@ -17,12 +17,13 @@ public class ProductoServiceImpl implements IProductService {
 	private ProductRepository productRepository;
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Product> findAll() {
 		return (List<Product>) productRepository.findAll();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Product findById(Long id) {
 		return productRepository.findById(id).orElse(null);
 	}
