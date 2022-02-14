@@ -48,7 +48,6 @@ public class ProductController {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		
 		return prod;
 		
 	}
