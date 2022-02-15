@@ -39,3 +39,5 @@ org.**
 
 mvnw
 mvnw.cmd
+
+/target/**
