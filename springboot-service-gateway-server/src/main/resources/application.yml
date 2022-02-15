@@ -1,0 +1,19 @@
+#Spring Cloud API Gateway
+#Routes register
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: service-products
+        uri: lb://service-products
+        predicates:
+          - Path=/api/products/** #se pueden usar más de uno separados por comas
+        #los filters permiten modificar el request
+        filters:
+          - StripPrefix=2  #the path has two prefixes, /api and /products
+      - id: service-items
+        uri: lb://service-items
+        predicates:
+          - Path=/api/items/**
+        filters:
+          - StripPrefix=2 

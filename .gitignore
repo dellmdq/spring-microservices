@@ -40,4 +40,6 @@ org.**
 mvnw
 mvnw.cmd
 
-/target/**
+**/target/**
+
+.classpath
