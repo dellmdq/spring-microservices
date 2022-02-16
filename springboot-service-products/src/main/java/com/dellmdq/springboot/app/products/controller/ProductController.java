@@ -1,8 +1,11 @@
 package com.dellmdq.springboot.app.products.controller;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -16,7 +19,7 @@ import com.dellmdq.springboot.app.products.models.entity.Product;
 
 @RestController
 public class ProductController {
-	
+
 	@Autowired
 	private Environment env;
 	
@@ -38,7 +41,15 @@ public class ProductController {
 	}
 	
 	@GetMapping("/products/{id}")
-	public Product getById(@PathVariable Long id) {
+	public Product getById(@PathVariable Long id) throws InterruptedException {
+		
+		if(id.equals(10L)) {
+			throw new IllegalStateException("Product not found!");
+		}
+		if(id.equals(7L)) {
+			TimeUnit.SECONDS.sleep(5L);
+		}
+		
 		Product prod = productService.findById(id);
 		prod.setPort(Integer.parseInt(env.getProperty("local.server.port")));
 		//prod.setPort(port);

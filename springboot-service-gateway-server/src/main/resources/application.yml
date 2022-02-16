@@ -11,7 +11,7 @@ spring:
         predicates:
          #se pueden usar más de uno separados por comas
           - Path=/api/products/**
-          #Pruebas de restricciones sobre el request
+          #Pruebas de restricciones sobre el request 
           #- Header= token, \d+
           #- Header=Content-Type,application/json
           #- Method=GET, POST
