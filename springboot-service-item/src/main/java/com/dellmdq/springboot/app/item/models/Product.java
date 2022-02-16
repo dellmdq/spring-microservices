@@ -2,7 +2,6 @@ package com.dellmdq.springboot.app.item.models;
 
 import java.util.Date;
 
-import javax.persistence.Transient;
 
 public class Product {
 	
@@ -11,7 +10,6 @@ public class Product {
 	private Double price;
 	private Date createAt;
 	
-	@Transient
 	private Integer port;
 	
 	public Long getId() {

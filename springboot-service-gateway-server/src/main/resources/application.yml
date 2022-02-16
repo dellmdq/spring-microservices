@@ -6,14 +6,33 @@ spring:
       routes:
       - id: service-products
         uri: lb://service-products
+        #Predicates. Restricciones/Request que se pueden aplicar sobre los request
+        #Condiciones a cumplir por los request
         predicates:
-          - Path=/api/products/** #se pueden usar más de uno separados por comas
+         #se pueden usar más de uno separados por comas
+          - Path=/api/products/**
+          #Pruebas de restricciones sobre el request
+          #- Header= token, \d+
+          #- Header=Content-Type,application/json
+          #- Method=GET, POST
+          #- Query=color
+          #- Cookie=color, azul
         #los filters permiten modificar el request
         filters:
-          - StripPrefix=2  #the path has two prefixes, /api and /products
+        #the path has two prefixes, /api and /products
+          - StripPrefix=2
+          - name: Demo
+            args:
+              message: Hello user
+              cookieName: user
+              cookieValue: ErikDell
       - id: service-items
         uri: lb://service-items
         predicates:
           - Path=/api/items/**
         filters:
-          - StripPrefix=2 
+          - StripPrefix=2
+          - AddRequestHeader=token-request, 123456
+          - AddResponseHeader=token-response, 7890
+          - SetResponseHeader=Content-Type, text/plain
+          - AddRequestParameter=name, Erik
