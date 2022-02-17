@@ -1,6 +1,7 @@
 package com.dellmdq.springboot.app.item.controllers;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dellmdq.springboot.app.item.models.Item;
 import com.dellmdq.springboot.app.item.models.Product;
 import com.dellmdq.springboot.app.item.models.service.ItemService;
+
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 
 // import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
@@ -46,8 +50,6 @@ public class ItemController {
 	/**Hystrix command. En caso de fallo derivar a tal método que debe
 	 * tener la misma firma. */
 	//@HystrixCommand(fallbackMethod = "alternativeMethod")
-	
-	
 	@GetMapping("/products/{id}/quantity/{quantity}")
 	public Item getById(@PathVariable Long id, @PathVariable Integer quantity) {
 		
@@ -55,8 +57,37 @@ public class ItemController {
 		return itemService.findById(id, quantity);*/
 		
 		//envolvemos el metodo, 2do param es un metodo alternativo, o excepcion.
-		return cbFactory.create("item")//nombre del circuitbreaker
+		return cbFactory.create("items")//nombre del circuitbreaker
 				.run(() -> itemService.findById(id, quantity), exc -> alternativeMethod(id, quantity, exc));
+	}
+	
+	/**CB config using annotations*/
+	@CircuitBreaker(name="items", fallbackMethod="alternativeMethod")
+	@GetMapping("/products2/{id}/quantity/{quantity}")
+	public Item getById2(@PathVariable Long id, @PathVariable Integer quantity) {
+
+		return itemService.findById(id, quantity);
+	}
+	
+	/**Sin circuit breaker pero usando el time limiter para agregar los timeout
+	 * a la configuración a traves de esta anotacion. Marcará los timeouts pero no
+	 * habra pasaje de estados (cerrado, abierto, semi-abierto) ya que no esta el CB.*/
+	@TimeLimiter(name="items", fallbackMethod="alternativeMethod2")
+	@GetMapping("/products3/{id}/quantity/{quantity}")
+	public CompletableFuture<Item>  getById3(@PathVariable Long id, @PathVariable Integer quantity) {
+
+		return CompletableFuture.supplyAsync( () -> itemService.findById(id, quantity));//envolvemos la llamada para poder calcular el tiempo de respuesta
+	}
+	
+	/**Combinamos las anotaciones para tener ambas funcionalidades CB y TL
+	 * Tener en cuenta de no usar el fallback method con @TimeLimiter ya que
+	 * eso inhabilita el circuitbreaker.*/
+	@CircuitBreaker(name="items", fallbackMethod="alternativeMethod2")
+	@TimeLimiter(name="items"/*, fallbackMethod="alternativeMethod2"*/)
+	@GetMapping("/products4/{id}/quantity/{quantity}")
+	public CompletableFuture<Item>  getById4(@PathVariable Long id, @PathVariable Integer quantity) {
+
+		return CompletableFuture.supplyAsync( () -> itemService.findById(id, quantity));//envolvemos la llamada para poder calcular el tiempo de respuesta
 	}
 	
 	/**Metodo alternativo que será llamado en el fallback*/
@@ -74,6 +105,23 @@ public class ItemController {
 		item.setProd(prod);
 		
 		return item;
+	
+	}
+	
+	public CompletableFuture<Item> alternativeMethod2(Long id, Integer quantity, Throwable exc) {
+		
+		logger.info(exc.getMessage());
+		
+		Item item = new Item();
+		Product prod = new Product();
+		
+		item.setQuantity(quantity);
+		prod.setId(id);
+		prod.setName("Camara Sony");
+		prod.setPrice(500.00);
+		item.setProd(prod);
+		
+		return CompletableFuture.supplyAsync( () ->item);
 	
 	}
 }
