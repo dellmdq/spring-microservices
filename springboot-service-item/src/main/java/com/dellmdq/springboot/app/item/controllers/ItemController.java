@@ -26,7 +26,7 @@ public class ItemController {
 	
 	private final Logger logger = LoggerFactory.getLogger(ItemController.class);
 	
-	/**este será implementado en el endpoint para usar el circuit breaker*/
+	/**este sera implementado en el endpoint para usar el circuit breaker*/
 	@Autowired
 	private CircuitBreakerFactory cbFactory;
 
@@ -63,6 +63,7 @@ public class ItemController {
 	public Item alternativeMethod(Long id, Integer quantity, Throwable exc) {
 		
 		logger.info(exc.getMessage());
+		
 		Item item = new Item();
 		Product prod = new Product();
 		
