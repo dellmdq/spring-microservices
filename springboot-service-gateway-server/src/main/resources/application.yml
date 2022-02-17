@@ -9,7 +9,7 @@ spring:
         #Predicates. Restricciones/Request que se pueden aplicar sobre los request
         #Condiciones a cumplir por los request
         predicates:
-         #se pueden usar más de uno separados por comas
+         #se pueden usar mas de uno separados por comas
           - Path=/api/products/**
           #Pruebas de restricciones sobre el request 
           #- Header= token, \d+
