@@ -44,7 +44,8 @@ public class ItemServiceFeign implements ItemService {
 	@Override
 	public void delete(Long id) {
 		prodRestFeignClient.delete(id);
-		
 	}
+		
+	
 
 }

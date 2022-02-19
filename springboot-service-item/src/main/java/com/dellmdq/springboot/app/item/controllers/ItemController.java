@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dellmdq.springboot.app.item.models.Item;
@@ -53,7 +54,7 @@ public class ItemController {
 	private CircuitBreakerFactory cbFactory;
 
 	@Autowired
-	@Qualifier("serviceFeign")
+	@Qualifier("serviceRestClient")
 	//@Qualifier("restClient")
 	private ItemService itemService;
 	
@@ -64,21 +65,6 @@ public class ItemController {
 		return itemService.findAll();
 	}
 	
-	@PostMapping("/products")
-	public Product create(@RequestBody Product product) {
-		return itemService.save(product);
-	}
-	
-	@PutMapping("/products/{id}")
-	public Product update(@RequestBody Product product, @PathVariable Long id) {
-		return itemService.update(product, id);
-	}
-	
-	@DeleteMapping("/products/{id}")
-	public void delete(@PathVariable Long id) {
-		itemService.delete(id);
-	}	
-			
 	//empezamos a usar Resilience4j...
 	/**Hystrix command. En caso de fallo derivar a tal método que debe
 	 * tener la misma firma. */
@@ -172,7 +158,27 @@ public class ItemController {
 			json.put("author.mail", env.getProperty("configuration.author.mail"));
 		}
 		
-		
 		return new ResponseEntity<Map<String, String>>(json, HttpStatus.OK);
 	}
+	
+	@PostMapping("/products")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Product create(@RequestBody Product product) {
+		return itemService.save(product);
+	}
+	
+	@ResponseStatus(HttpStatus.CREATED)
+	@PutMapping("/products/{id}")
+	public Product update(@RequestBody Product product, @PathVariable Long id) {
+		return itemService.update(product, id);
+		
+	}
+	
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@DeleteMapping("/products/{id}")
+	public void delete(@PathVariable Long id) {
+		itemService.delete(id);
+	}
+
+
 }
