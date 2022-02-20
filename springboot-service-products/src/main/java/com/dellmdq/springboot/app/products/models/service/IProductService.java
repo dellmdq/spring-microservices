@@ -2,7 +2,7 @@ package com.dellmdq.springboot.app.products.models.service;
 
 import java.util.List;
 
-import com.dellmdq.springboot.app.products.models.entity.Product;
+import com.dellmdq.springboot.app.commons.models.entity.Product;
 
 public interface IProductService {
 	

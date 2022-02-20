@@ -1,10 +1,13 @@
-package com.dellmdq.springboot.app.item.models;
+/*clase reemplazada por su clon en commons
+ * 
+ * package com.dellmdq.springboot.app.item.models;
+ 
 
 import java.util.Date;
 
 
 public class Product {
-	
+	/*
 	private Long id;
 	private String name;
 	private Double price;
@@ -42,8 +45,7 @@ public class Product {
 	public void setPort(Integer port) {
 		this.port = port;
 	}
-	
-	
-	
+
 
 }
+*/

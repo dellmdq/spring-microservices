@@ -85,6 +85,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+				<!-- agregamos la dependencia de la libreria commons para acceder a los products-->
+		<dependency>
+			<groupId>com.dellmdq.springboot.app.commons</groupId>
+			<artifactId>springboot-service-commons</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		
 	
 	</dependencies>
 	

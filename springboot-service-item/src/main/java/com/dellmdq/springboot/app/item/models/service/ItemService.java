@@ -3,7 +3,7 @@ package com.dellmdq.springboot.app.item.models.service;
 import java.util.List;
 
 import com.dellmdq.springboot.app.item.models.Item;
-import com.dellmdq.springboot.app.item.models.Product;
+import com.dellmdq.springboot.app.commons.models.entity.Product;
 
 public interface ItemService {
 	

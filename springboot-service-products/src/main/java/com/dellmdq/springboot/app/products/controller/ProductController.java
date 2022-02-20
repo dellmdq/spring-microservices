@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dellmdq.springboot.app.products.models.service.IProductService;
-import com.dellmdq.springboot.app.products.models.entity.Product;
+import com.dellmdq.springboot.app.commons.models.entity.Product;
 
 
 @RestController
@@ -48,12 +48,12 @@ public class ProductController {
 	@GetMapping("/products/{id}")
 	public Product getById(@PathVariable Long id) throws InterruptedException {
 		
-		if(id.equals(10L)) {
-			throw new IllegalStateException("Product not found!");
-		}
-		if(id.equals(7L)) {
-			TimeUnit.SECONDS.sleep(5L);
-		}
+//		if(id.equals(10L)) {
+//			throw new IllegalStateException("Product not found!");
+//		}
+//		if(id.equals(7L)) {
+//			TimeUnit.SECONDS.sleep(5L);
+//		}
 		
 		Product prod = productService.findById(id);
 		prod.setPort(Integer.parseInt(env.getProperty("local.server.port")));

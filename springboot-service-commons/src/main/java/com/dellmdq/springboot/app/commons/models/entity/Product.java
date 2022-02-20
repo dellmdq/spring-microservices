@@ -1,4 +1,4 @@
-package com.dellmdq.springboot.app.products.models.entity;
+package com.dellmdq.springboot.app.commons.models.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,9 +13,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-
-/**Esta clase es reemplazada por el proyecto por su clon en commons para no repetir
- * texto en el resto de los microservicios que la utilicen*/
 @Entity
 @Table(name = "product")
 public class Product implements Serializable{

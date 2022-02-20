@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.dellmdq.springboot.app.item.clients.ProductRestClient;
 import com.dellmdq.springboot.app.item.models.Item;
-import com.dellmdq.springboot.app.item.models.Product;
+import com.dellmdq.springboot.app.commons.models.entity.Product;
 
 
 

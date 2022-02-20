@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dellmdq.springboot.app.products.models.entity.Product;
+import com.dellmdq.springboot.app.commons.models.entity.Product;
 import com.dellmdq.springboot.app.products.models.repository.ProductRepository;
 
 

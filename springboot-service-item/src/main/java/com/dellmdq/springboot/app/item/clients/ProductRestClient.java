@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.dellmdq.springboot.app.item.models.Product;
+import com.dellmdq.springboot.app.commons.models.entity.Product;
 
 
 /**desacoplamos la dirección fisica, ribbon se encarga del direccionamiento)

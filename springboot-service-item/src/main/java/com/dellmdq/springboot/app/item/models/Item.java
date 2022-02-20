@@ -1,5 +1,8 @@
 package com.dellmdq.springboot.app.item.models;
 
+import com.dellmdq.springboot.app.commons.models.entity.Product;
+
+
 public class Item {
 
 	private Product prod;
