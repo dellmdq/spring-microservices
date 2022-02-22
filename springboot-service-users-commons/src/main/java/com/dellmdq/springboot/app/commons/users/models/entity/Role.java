@@ -1,4 +1,4 @@
-package com.dellmdq.springboot.app.commons.models.entity;
+package com.dellmdq.springboot.app.commons.users.models.entity;
 
 import java.io.Serializable;
 import java.util.List;
