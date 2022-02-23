@@ -17,7 +17,7 @@ import com.dellmdq.springboot.app.commons.users.models.entity.User;
 import com.dellmdq.springboot.app.oauth.clients.UserFeignClient;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService, IUserService {
 	
 	private Logger log = LoggerFactory.getLogger(UserService.class);
 	
@@ -44,6 +44,11 @@ public class UserService implements UserDetailsService {
 		log.info("Authenticated user: " + username);
 		
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getEnabled(), true, true, true, authorities);
+	}
+
+	@Override
+	public User findByUsername(String username) {
+		return feignClient.findByUserName(username);
 	}
 	
 	
