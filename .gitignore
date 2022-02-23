@@ -43,3 +43,5 @@ mvnw.cmd
 **/target/**
 
 .classpath
+
+.springBeans
