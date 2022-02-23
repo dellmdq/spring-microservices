@@ -52,7 +52,7 @@
 		</dependency>
 		<!-- user library commons-->
 		<dependency>
-			<groupId>com.dellmdq.springboot.app.commons</groupId>
+			<groupId>com.dellmdq.springboot.app.commons.users</groupId>
 			<artifactId>springboot-service-users-commons</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

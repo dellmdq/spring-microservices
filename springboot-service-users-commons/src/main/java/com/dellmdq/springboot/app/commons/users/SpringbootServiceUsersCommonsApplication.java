@@ -1,4 +1,4 @@
-package com.dellmdq.springboot.app.commons;
+package com.dellmdq.springboot.app.commons.users;
 
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;

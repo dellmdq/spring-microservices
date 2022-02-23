@@ -51,7 +51,7 @@ public class ItemController {
 	
 	/**este sera implementado en el endpoint para usar el circuit breaker*/
 	@Autowired
-	private CircuitBreakerFactory cbFactory;
+	private CircuitBreakerFactory<?, ?> cbFactory;
 
 	@Autowired
 	@Qualifier("serviceRestClient")

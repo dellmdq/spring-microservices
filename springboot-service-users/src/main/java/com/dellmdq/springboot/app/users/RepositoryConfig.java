@@ -5,8 +5,11 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
-import com.dellmdq.springboot.app.commons.models.entity.Role;
-import com.dellmdq.springboot.app.commons.models.entity.User;
+import com.dellmdq.springboot.app.commons.users.models.entity.Role;
+import com.dellmdq.springboot.app.commons.users.models.entity.User;
+
+
+
 
 
 @Configuration

@@ -7,7 +7,7 @@
 		<version>2.6.3</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.dellmdq.springboot.app.commons</groupId>
+	<groupId>com.dellmdq.springboot.app.commons.users</groupId>
 	<artifactId>springboot-service-users-commons</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>springboot-service-users-commons</name>

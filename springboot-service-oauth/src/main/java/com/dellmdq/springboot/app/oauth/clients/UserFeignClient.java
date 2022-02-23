@@ -4,13 +4,14 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.dellmdq.springboot.app.commons.models.entity.User;
+import com.dellmdq.springboot.app.commons.users.models.entity.User;
+
 
 @FeignClient("service-users")
 public interface UserFeignClient {
 	
 	@GetMapping("/users/search/findByUsername")
-	public User findByUserName(@RequestParam String username);
+	public User findByUserName(@RequestParam("username") String username);
 	
 
 }

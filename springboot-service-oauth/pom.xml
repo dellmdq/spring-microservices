@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.3</version>
+		<version>2.5.3</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.dellmdq.springboot.app.oauth</groupId>
@@ -14,7 +14,7 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
-		<spring-cloud.version>2021.0.0</spring-cloud.version>
+		<spring-cloud.version>2020.0.3</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -51,26 +51,31 @@
 			<artifactId>spring-security-jwt</artifactId>
 			<version>1.1.1.RELEASE</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.glassfish.jaxb</groupId>
 			<artifactId>jaxb-runtime</artifactId>
 		</dependency>
 		<!-- user library commons-->
 		<dependency>
-			<groupId>com.dellmdq.springboot.app.commons</groupId>
+			<groupId>com.dellmdq.springboot.app.commons.users</groupId>
 			<artifactId>springboot-service-users-commons</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-			<!-- excluimos jpa para evitar el autoconfiguration que no vamos a usar-->
+			<!-- excluimos jpa para evitar el autoconfiguration que no vamos a usar. NO SIRVIO. MODIFIQUE CLASS SPRINGBOOT-->
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-data-jpa</artifactId>
+					<artifactId>spring-boot-starter-data-jpa</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+
 	</dependencies>
-	
 
 
 	<dependencyManagement>

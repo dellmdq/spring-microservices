@@ -16,9 +16,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserDetailsService userService;//usamos el service que implementa la interfaz UserDetailsService
 
 	@Bean
-	public static BCryptPasswordEncoder passwordEncoder() {
+	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
 	
 	@Override
 	@Autowired//inyectamos el AuthenticationManagerBuilder auth

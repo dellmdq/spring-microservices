@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.dellmdq.springboot.app.commons.models.entity.User;
+import com.dellmdq.springboot.app.commons.users.models.entity.User;
 import com.dellmdq.springboot.app.oauth.clients.UserFeignClient;
 
 @Service
