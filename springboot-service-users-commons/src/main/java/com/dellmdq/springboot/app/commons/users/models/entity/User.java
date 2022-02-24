@@ -41,6 +41,9 @@ public class User implements Serializable {
 	uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role_id"})}
 	)
 	private List<Role> roles;
+	
+	/**setear en máximo de tres loggin erroneos previos antes de bloquear el sistema*/
+	private Integer loggingFails;
 
 	private static final long serialVersionUID = -5596866391183565515L;
 
@@ -106,6 +109,14 @@ public class User implements Serializable {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Integer getLoggingFails() {
+		return loggingFails;
+	}
+
+	public void setLoggingFails(Integer loggingFails) {
+		this.loggingFails = loggingFails;
 	}
 	
 	
