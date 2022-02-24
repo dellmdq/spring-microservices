@@ -28,8 +28,6 @@ hs_err_pid*
 #project eclipse
 .project
 
-#md
-*.md
 
 #org
 org.**
@@ -37,8 +35,6 @@ org.**
 #mvn
 .mvn
 
-mvnw
-mvnw.cmd
 
 **/target/**
 

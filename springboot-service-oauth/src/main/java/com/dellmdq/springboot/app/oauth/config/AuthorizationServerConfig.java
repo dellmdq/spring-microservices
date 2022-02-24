@@ -40,7 +40,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
-		tokenConverter.setSigningKey("config.security.oauth.jwt.key");//seteamos el codigo secreto que usamos para el hash
+		tokenConverter.setSigningKey(env.getProperty("config.security.oauth.jwt.key"));//seteamos el codigo secreto que usamos para el hash
 		return tokenConverter;
 	}
 	
