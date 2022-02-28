@@ -1,6 +1,7 @@
 package com.dellmdq.springboot.app.oauth.config;
 
 import java.util.Arrays;
+import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -40,7 +41,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
-		tokenConverter.setSigningKey(env.getProperty("config.security.oauth.jwt.key"));//seteamos el codigo secreto que usamos para el hash
+		tokenConverter.setSigningKey(Base64.getEncoder().encodeToString(env.getProperty("config.security.oauth.jwt.key").getBytes()));//seteamos el codigo secreto que usamos para el hash
 		return tokenConverter;
 	}
 	

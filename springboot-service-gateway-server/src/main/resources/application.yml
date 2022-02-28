@@ -62,7 +62,15 @@ spring:
           - Path=/api/items/**
         filters:
           - StripPrefix=2
-          - AddRequestHeader=token-request, 123456
-          - AddResponseHeader=token-response, 7890
-          - SetResponseHeader=Content-Type, text/plain
-          - AddRequestParameter=name, Erik
+      - id: service-oauth
+        uri: lb://service-oauth
+        predicates:
+          - Path=/api/oauth/**
+        filters:
+          - StripPrefix=2
+      - id: service-users
+        uri: lb://service-users
+        predicates:
+          - Path=/api/users/**
+        filters:
+          - StripPrefix=2
