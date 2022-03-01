@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.dellmdq.springboot.app.commons.users.models.entity.User;
 import com.dellmdq.springboot.app.oauth.clients.UserFeignClient;
 
+import brave.Tracer;
 import feign.FeignException;
 
 @Service
@@ -26,6 +27,9 @@ public class UserService implements UserDetailsService, IUserService {
 	@Autowired
 	private UserFeignClient feignClient;
 
+	@Autowired
+	private Tracer tracer;
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -36,8 +40,7 @@ public class UserService implements UserDetailsService, IUserService {
 			// obtenemos las autorizaciones
 			List<GrantedAuthority> authorities = user.getRoles().stream()
 					.map(role -> new SimpleGrantedAuthority(role.getName()))// convertimos rol a authority
-					.peek(authority -> log.info("Role: " + authority.getAuthority()))// mostramos el role convertido a
-																						// authority
+					.peek(authority -> log.info("Role: " + authority.getAuthority()))// mostramos el role convertido a authority
 					.collect(Collectors.toList());
 
 			log.info("Authenticated user: " + username);
@@ -46,8 +49,11 @@ public class UserService implements UserDetailsService, IUserService {
 					user.getEnabled(), true, true, true, authorities);
 
 		} catch (FeignException e) {
-			log.error("Login error. User " + username + " does not exists.");
-			throw new UsernameNotFoundException("Login error. User " + username + " does not exists.");
+			String error = "Login error. User " + username + " does not exists."; 
+			log.error(error);
+			
+			tracer.currentSpan().tag("Error message", error + ": " + e.getMessage());
+			throw new UsernameNotFoundException(error);
 		}
 
 	}

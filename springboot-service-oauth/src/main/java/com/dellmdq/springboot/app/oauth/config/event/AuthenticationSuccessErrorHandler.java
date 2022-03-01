@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.dellmdq.springboot.app.commons.users.models.entity.User;
 import com.dellmdq.springboot.app.oauth.services.IUserService;
 
+import brave.Tracer;
 import feign.FeignException;
 
 @Component
@@ -22,6 +23,9 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 	
 	@Autowired
 	private IUserService userService;
+	
+	@Autowired
+	private Tracer tracer;
 
 	@Override
 	public void publishAuthenticationSuccess(Authentication authentication) {
@@ -53,6 +57,9 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 		System.out.println(message);
 		
 		try {
+			//contruimos un string para mostrar los errores en el trace de zipkin
+			StringBuilder errors = new StringBuilder();
+			errors.append(message);
 			
 			User user = userService.findByUsername(authentication.getName());
 			if(user.getLoggingFails() == null) {
@@ -63,15 +70,19 @@ public class AuthenticationSuccessErrorHandler implements AuthenticationEventPub
 			user.setLoggingFails(user.getLoggingFails() + 1);
 			log.info("Logging attempt: " + user.getLoggingFails());
 			
+			errors.append("\nLogging attempt: " + user.getLoggingFails());
+			
 			if(user.getLoggingFails() >= 3) {
-				log.error(String.format("User %s disabled. Too many failed loggings", user.getUsername()));
+				String maxFailedLogins = String.format("User %s disabled. Too many failed loggins", user.getUsername()); 
+				errors.append("\n" + maxFailedLogins);
+				log.error(maxFailedLogins);
 				user.setEnabled(false);
 			}
 			
 			userService.update(user, user.getId());
 			
-			
-			
+			tracer.currentSpan().tag("Message error", errors.toString());
+					
 		}catch(FeignException exc) {
 			
 			log.error(String.format("Username %s does not exist", authentication.getName()));
