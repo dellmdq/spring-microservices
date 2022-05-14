@@ -42,3 +42,6 @@ org.**
 
 .springBeans
 
+#Intellij files
+.idea
+/spring-microservices.iml
