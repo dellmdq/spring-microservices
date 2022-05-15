@@ -44,4 +44,8 @@ org.**
 
 #Intellij files
 .idea
+
 /spring-microservices.iml
+
+#.bak notepad++ files
+.bak
