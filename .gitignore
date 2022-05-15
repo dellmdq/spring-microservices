@@ -48,4 +48,4 @@ org.**
 /spring-microservices.iml
 
 #.bak notepad++ files
-.bak
+*.bak
