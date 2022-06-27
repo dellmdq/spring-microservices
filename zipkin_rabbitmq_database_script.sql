@@ -11,6 +11,17 @@
 -- or implied. See the License for the specific language governing permissions and limitations under
 -- the License.
 --
+-- script para cambiar tipo de password de usuario
+    DROP USER 'zipkin'@'localhost';
+    CREATE USER 'zipkin'@'%' IDENTIFIED BY 'zipkin';
+    GRANT ALL PRIVILEGES ON * . * TO 'zipkin'@'%';
+    ALTER USER 'zipkin'@'localhost' IDENTIFIED WITH mysql_native_password BY 'zipkin';
+    FLUSH PRIVILEGES;
+ALTER USER 'zipkin'@'localhost' IDENTIFIED WITH mysql_native_password BY 'zipkin';
+
+-- create schema zipkin;
+
+-- use zipkin;
 
 CREATE TABLE IF NOT EXISTS zipkin_spans (
   `trace_id_high` BIGINT NOT NULL DEFAULT 0 COMMENT 'If non zero, this means the trace uses 128 bit traceIds instead of 64 bit',

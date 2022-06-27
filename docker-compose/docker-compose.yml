@@ -1,0 +1,62 @@
+version: '3.7'
+services:
+  config-server:
+    image: config-server:v1
+    ports:
+      - "8888:8888"
+    restart: always
+    networks:
+      - springcloud
+  service-eureka-server:
+      image: service-eureka-server:v1
+      ports:
+        - "8761:8761"
+      restart: always
+      networks:
+        - springcloud
+  microservices-mysql8:
+      image: mysql:8.0.29-oracle
+      ports:
+        - "3306:3306"
+      restart: always
+      networks:
+        - springcloud
+      environment:
+        MYSQL_DATABASE: db_springboot_cloud
+        MYSQL_ROOT_PASSWORD: root    
+  service-products:
+      image: service-products:v1
+      restart: always
+      networks:
+        - springcloud
+      depends_on:
+        - config-server
+        - service-eureka-server
+        - microservices-mysql8
+  service-item:
+      image: service-item:v1
+      ports:
+        - "8002:8002" 
+        - "8005:8005"
+        - "8007:8007"
+      restart: always
+      networks:
+        - springcloud
+      depends_on:
+        - config-server
+        - service-eureka-server
+        - service-products
+  service-zuul-server:
+      image: service-zuul-server:v1
+      ports:
+        - "8090:8090" 
+      restart: always
+      networks:
+        - springcloud
+      depends_on:
+        - config-server
+        - service-eureka-server
+        - service-products
+        - service-item
+networks:
+  springcloud:

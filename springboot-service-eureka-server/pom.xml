@@ -7,7 +7,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.6.3</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath /><!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.dellmdq.springboot.app.eureka</groupId>
 	<artifactId>springboot-service-eureka-server</artifactId>
@@ -35,15 +35,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.glassfish.jaxb</groupId>
 			<artifactId>jaxb-runtime</artifactId>
 		</dependency>
-
 	</dependencies>
-
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -55,7 +51,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -64,5 +59,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
